@@ -47,10 +47,12 @@ ExportedObj/
 *.opendb
 *.VC.db
 
-# Unity3D generated meta files
-*.pidb.meta
-*.pdb.meta
-*.mdb.meta
+## Unity3D generated meta files
+# *.pidb.meta
+# *.pdb.meta
+# *.mdb.meta
+#*.meta
+workspace.xml
 
 # Unity3D generated file on crash reports
 sysinfo.txt
@@ -68,5 +70,16 @@ crashlytics-build.properties
 /[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
 
 # Temporary auto-generated Android Assets
-/[Aa]ssets/[Ss]treamingAssets/aa.meta
+# /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+/.idea/.idea.Ai_in_games.dir/.idea/vcs.xml
+/.idea/.idea.Ai_in_games.dir/.idea/indexLayout.xml
+/.idea/.idea.Ai_in_games.dir/.idea/encodings.xml
+/.idea/.idea.Ai_in_games.dir/.idea/aws.xml
+/.idea/Ai_in_games.iml
+/.idea/modules.xml
+/.idea/vcs.xml
+/.idea/.idea.Ai_in_games/.idea/projectSettingsUpdater.xml
+/.idea/.idea.Ai_in_games/.idea/workspace.xml
+/.idea/indexLayout.xml
+/.idea/projectSettingsUpdater.xml
