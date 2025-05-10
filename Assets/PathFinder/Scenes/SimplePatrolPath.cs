@@ -7,53 +7,61 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-namespace K_PathFinder.Samples {
-    public class SimplePatrolPath : MonoBehaviour, IEnumerable<Vector3> {
-        public List<Vector3> points;        //actual points
-        public LayerMask mask = 1;          //mask to test is points grounded
-        public Color color = Color.red;     //some nice color    
+namespace K_PathFinder.Samples
+{
+    public class SimplePatrolPath : MonoBehaviour, IEnumerable<Vector3>
+    {
+        [SerializeField]
+        public List<Vector3> points = new List<Vector3>(); // now serialized and initialized
+        public LayerMask mask = 1;
+        public Color color = Color.red;
 
-        void OnDrawGizmos() {
-            //draw lines
-            if (Count != 0 && Count > 1) {
+        void OnDrawGizmos()
+        {
+            if (Count != 0 && Count > 1)
+            {
                 Gizmos.color = color;
-                for (int i = 0; i < Count - 1; i++) {
+                for (int i = 0; i < Count - 1; i++)
+                {
                     Gizmos.DrawLine(points[i], points[i + 1]);
                 }
                 Gizmos.DrawLine(points[Count - 1], points[0]);
             }
         }
 
-        public Vector3 this[int index] {
+        public Vector3 this[int index]
+        {
             get { return points[index]; }
             set { points[index] = value; }
         }
 
-        public int Count {
-            get {
+        public int Count
+        {
+            get
+            {
                 if (points == null)
                     return 0;
                 return points.Count;
             }
         }
 
-        public IEnumerator<Vector3> GetEnumerator() {
+        public IEnumerator<Vector3> GetEnumerator()
+        {
             return points.GetEnumerator();
         }
 
-        IEnumerator IEnumerable.GetEnumerator() {
+        IEnumerator IEnumerable.GetEnumerator()
+        {
             return points.GetEnumerator();
         }
     }
 
 #if UNITY_EDITOR
-    //a bit slow cause it's not a good example of using handles
     [CustomEditor(typeof(SimplePatrolPath))]
     public class PositionHandleExampleEditor : Editor {
         float groundedDistance = 2f;
         List<Vector3> list = new List<Vector3>();
 
-        //things to hide default transform editor
         Tool lastTool = Tool.None;
         void OnEnable() {
             lastTool = Tools.current;
@@ -69,7 +77,6 @@ namespace K_PathFinder.Samples {
             if (patrol == null)
                 return;
 
-            //grounding points
             var serializedObject = new SerializedObject(patrol);
             var layersProperty = serializedObject.FindProperty("mask");
             EditorGUILayout.PropertyField(layersProperty, true);
@@ -77,26 +84,25 @@ namespace K_PathFinder.Samples {
                 GroundPatrolPath(patrol, groundedDistance);
             }
             groundedDistance = EditorGUILayout.FloatField("Max ground distance", groundedDistance);
-            
+
             patrol.color = EditorGUILayout.ColorField(patrol.color);
             if (GUI.changed) {
                 Undo.RecordObject(patrol, "Patrol serialization");
             }
 
-            //adding points
             if (GUILayout.Button("Add Point")) {
                 int count = patrol.Count;
                 List<Vector3> newPoints = new List<Vector3>();
 
                 switch (count) {
-                    case 0://if no points then add point where object are
+                    case 0:
                         newPoints.Add(patrol.transform.position);
                         break;
-                    case 1://if one point then add point next to it
+                    case 1:
                         newPoints.Add(patrol[0]);
                         newPoints.Add(patrol[0] + Vector3.right);
                         break;
-                    default://if more than one then add point in direction of last two points
+                    default:
                         for (int i = 0; i < count; i++) {
                             newPoints.Add(patrol[i]);
                         }
@@ -104,15 +110,11 @@ namespace K_PathFinder.Samples {
                         break;
                 }
 
-                //serialize
                 Undo.RecordObject(patrol, "Add point to patrol path");
                 patrol.points = newPoints;
-                //ground all points
                 GroundPatrolPath(patrol, groundedDistance);
             }
-            
-            //removing points
-            //using that cause i cant remove points in middle of iteration
+
             bool remove = false;
             int removeIndex = 0;
             for (int i = 0; i < patrol.Count; i++) {
@@ -143,15 +145,12 @@ namespace K_PathFinder.Samples {
             list.Clear();
             list.AddRange(patrol);
 
-            //draw handles
             for (int i = 0; i < patrol.Count; i++) {
-                list[i] = Handles.PositionHandle(list[i], Quaternion.identity); //position of points
-            
-                //list.Add(Handles.PositionHandle(patrol[i], Quaternion.identity)); //position of points
-                Handles.Label(list[i], i.ToString()); //index of points
+                list[i] = Handles.PositionHandle(list[i], Quaternion.identity);
+                Handles.Label(list[i], i.ToString());
             }
 
-            if (EditorGUI.EndChangeCheck()) {   
+            if (EditorGUI.EndChangeCheck()) {
                 patrol.points.Clear();
                 Undo.RecordObject(patrol, "Change patrol path point position");
                 patrol.points.AddRange(list);
