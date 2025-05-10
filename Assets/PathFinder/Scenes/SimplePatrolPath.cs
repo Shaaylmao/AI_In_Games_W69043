@@ -16,6 +16,11 @@ namespace K_PathFinder.Samples
         public LayerMask mask = 1;
         public Color color = Color.red;
 
+        void Awake()
+        {
+            Debug.Log("Points at Awake: " + (points != null ? points.Count.ToString() : "null"));
+        }
+
         void OnDrawGizmos()
         {
             if (Count != 0 && Count > 1)

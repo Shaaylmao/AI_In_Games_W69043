@@ -12,7 +12,7 @@ namespace K_PathFinder.Samples {
         public bool playerFinded = false;
 
         public LineRenderer lineRenderer;
-        // public GameObject follow;
+        public GameObject follow;
         [Range(0f, 5f)] public float speed = 3;
 
         PathFinderAgent agent;

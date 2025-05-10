@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PathfinderFinal
   m_EditorClassIdentifier: 
   properties:
-  - {fileID: 11400000, guid: 02dbf019953284b4db1b1fefacd5223b, type: 2}
+  - {fileID: 11400000, guid: 8fa1a3f36725e67408e715f795857fcc, type: 2}
   navmesh:
   - pathFinderVersion: 0.50
     serializedGraphs: []

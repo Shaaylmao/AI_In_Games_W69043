@@ -116,11 +116,11 @@ MonoBehaviour:
   - Example Layer 2
   layerSellectorInts: 00000000010000000800000009000000
   areaPointer:
-    startX: 4
-    startZ: 3
-    endX: 9
-    endZ: 9
-    y: 0.6889
+    startX: 5
+    startZ: 5
+    endX: 6
+    endZ: 6
+    y: 0
   drawAreaPointer: 1
   removeAndRebuild: 1
   drawBuilder: 1

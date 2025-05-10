@@ -8,6 +8,7 @@ public class Detection : MonoBehaviour
     private GameObject PlayerExample;
 
     public bool playerFinded = false; 
+
     public Transform player; 
 
     void Start()
